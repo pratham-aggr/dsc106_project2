@@ -1,0 +1,26 @@
+[
+  {
+    "group": "Black",
+    "complaint_pct": 62.0,
+    "pop_pct": 24.3,
+    "ratio": 2.55
+  },
+  {
+    "group": "Hispanic",
+    "complaint_pct": 23.3,
+    "pop_pct": 28.9,
+    "ratio": 0.81
+  },
+  {
+    "group": "White",
+    "complaint_pct": 10.1,
+    "pop_pct": 32.1,
+    "ratio": 0.31
+  },
+  {
+    "group": "Asian",
+    "complaint_pct": 1.9,
+    "pop_pct": 13.9,
+    "ratio": 0.14
+  }
+]
