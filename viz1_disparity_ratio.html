@@ -11,7 +11,7 @@
     --surface:  #f5f5f3;
     --text:     #1a1a1a;
     --muted:    #6b6b6b;
-    --red-dark: #A32D2D;
+    --red-dark: #C41E3A;
   }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #111113; --surface: #1c1c1f; --text: #f0f0f0; --muted: #999; }
@@ -62,22 +62,22 @@
 </p>
 
 <div class="cards">
-  <div class="card" style="--c:#A32D2D;">
+  <div class="card" style="--c:#C41E3A;">
     <div class="card-label">Black residents</div>
     <div class="card-value">2.55×</div>
     <div class="card-sub">62.0% of complaints<br>24.3% of population</div>
   </div>
-  <div class="card" style="--c:#854F0B;">
+  <div class="card" style="--c:#4B7BC8;">
     <div class="card-label">Hispanic residents</div>
     <div class="card-value">0.81×</div>
     <div class="card-sub">23.3% of complaints<br>28.9% of population</div>
   </div>
-  <div class="card" style="--c:#185FA5;">
+  <div class="card" style="--c:#6BACDB;">
     <div class="card-label">White residents</div>
     <div class="card-value">0.31×</div>
     <div class="card-sub">10.1% of complaints<br>32.1% of population</div>
   </div>
-  <div class="card" style="--c:#5F5E5A;">
+  <div class="card" style="--c:#A0BFD9;">
     <div class="card-label">Asian residents</div>
     <div class="card-value">0.14×</div>
     <div class="card-sub">1.9% of complaints<br>13.9% of population</div>
@@ -93,7 +93,7 @@
 
 <div class="legend">
   <div class="legend-item">
-    <div class="legend-line" style="background:#A32D2D;"></div>
+    <div class="legend-line" style="background:#C41E3A;"></div>
     Over-represented (ratio &gt; 1.0)
   </div>
   <div class="legend-item">
@@ -101,7 +101,7 @@
     Proportional baseline (1.0)
   </div>
   <div class="legend-item">
-    <div class="legend-line" style="background:#185FA5;"></div>
+    <div class="legend-line" style="background:#6BACDB;"></div>
     Under-represented (ratio &lt; 1.0)
   </div>
 </div>
@@ -129,10 +129,10 @@ const tickColor = isDark ? '#999' : '#666';
 const gridColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)';
 
 const COLORS = {
-  'Black':    { border: '#E24B4A', fill: '#E24B4Acc' },
-  'Hispanic': { border: '#EF9F27', fill: '#EF9F27cc' },
-  'White':    { border: '#378ADD', fill: '#378ADDcc' },
-  'Asian':    { border: '#888780', fill: '#888780cc' },
+  'Black':    { border: '#C41E3A', fill: '#C41E3Acc' },
+  'Hispanic': { border: '#4B7BC8', fill: '#4B7BC8cc' },
+  'White':    { border: '#6BACDB', fill: '#6BACDBcc' },
+  'Asian':    { border: '#A0BFD9', fill: '#A0BFD9cc' },
 };
 
 let DATA = [];

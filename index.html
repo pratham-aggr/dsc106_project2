@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DSC 106 Project 2: NYPD Complaint Data Visualization</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:       #ffffff;
+      --surface:  #f5f5f3;
+      --text:     #1a1a1a;
+      --muted:    #6b6b6b;
+      --accent:   #C41E3A;
+      --border:   rgba(0,0,0,0.1);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111113; --surface: #1c1c1f; --text: #f0f0f0;
+        --muted: #999; --border: rgba(255,255,255,0.1);
+      }
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--bg) 100%);
+      padding: 60px 40px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .header .container {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .course-info {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .toc {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .toc a {
+      font-size: 13px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .toc a:hover {
+      text-decoration: underline;
+    }
+
+    .section {
+      margin-bottom: 80px;
+      padding: 40px;
+      background: var(--surface);
+      border-radius: 8px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .section h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .viz-frame {
+      width: 100%;
+      height: 1200px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      margin: 20px 0;
+      background: var(--bg);
+    }
+
+    .design-rationale {
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(163, 45, 45, 0.05);
+      border-radius: 4px;
+    }
+
+    .design-rationale h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .design-item {
+      margin-bottom: 12px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .design-item strong {
+      color: var(--text);
+    }
+
+    .placeholder {
+      padding: 20px;
+      background: rgba(107, 107, 107, 0.1);
+      border-left: 3px solid var(--muted);
+      border-radius: 4px;
+      margin: 20px 0;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .writeup-section {
+      margin: 30px 0;
+    }
+
+    .writeup-section h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    @media (max-width: 768px) {
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+      .viz-frame {
+        height: 800px;
+      }
+      .header {
+        padding: 40px 20px;
+      }
+      .container {
+        padding: 0 20px;
+      }
+      .section {
+        padding: 20px;
+      }
+    }
+
+    .footer {
+      text-align: center;
+      padding: 40px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    a.toc-link {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a.toc-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="container">
+    <div class="course-info">DSC 106 · Data Visualization II</div>
+    <h1>Persuasion in Data Visualization</h1>
+    <p class="subtitle">Racial Disparity in NYPD Civilian Complaint Review Board Allegations</p>
+    <div class="toc">
+      <a href="#visualization-1">Visualization 1</a>
+      <a href="#visualization-2">Visualization 2</a>
+      <a href="#design-rationale">Design Rationale</a>
+      <a href="#writeup">Write-up</a>
+      <a href="#reflection">Reflection</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- VISUALIZATION 1 -->
+  <div class="section" id="visualization-1">
+    <h2>Visualization 1: Disparity Ratio by Race</h2>
+    <p style="color: var(--muted); margin-bottom: 20px; font-size: 13px;">
+      <strong>Argument:</strong> Black New Yorkers face systematic over-representation in NYPD complaints, with a disparity ratio that far exceeds other groups.
+    </p>
+    <iframe class="viz-frame" src="viz1_disparity_ratio.html" title="Visualization 1: Disparity Ratio by Race"></iframe>
+
+    <div class="design-rationale">
+      <h3>Design Decisions</h3>
+      <div class="design-item"><strong>1. Disparity Ratio Framing:</strong> <span class="placeholder">[REPLACE] Explain why the ratio metric emphasizes severity compared to raw percentages. How does dividing complaint % by population % make the disparity more salient?</span></div>
+      <div class="design-item"><strong>2. Card-Based Layout:</strong> <span class="placeholder">[REPLACE] Describe how the four prominent cards emphasize the multiplier values and draw attention to Black residents' 2.55× ratio.</span></div>
+      <div class="design-item"><strong>3. Color & Visual Hierarchy:</strong> <span class="placeholder">[REPLACE] Explain color choices—why Red for Black residents? How does saturation/darkness guide the eye?</span></div>
+      <div class="design-item"><strong>4. Reference Line (1.0×):</strong> <span class="placeholder">[REPLACE] Why is the proportional baseline important? How does showing it persuade readers about what "fair" representation looks like?</span></div>
+      <div class="design-item"><strong>Deceptiveness Score (-2 to +2):</strong> <span class="placeholder">[REPLACE] Rate this visualization's persuasion techniques and justify your score.</span></div>
+    </div>
+  </div>
+
+  <!-- VISUALIZATION 2 -->
+  <div class="section" id="visualization-2">
+    <h2>Visualization 2: Complaint Share Trend (2001–2019)</h2>
+    <p style="color: var(--muted); margin-bottom: 20px; font-size: 13px;">
+      <strong>Argument:</strong> Over nearly two decades, the racial composition of complaints has shifted, with declining Black representation and increasing Asian representation, suggesting changing patterns.
+    </p>
+    <iframe class="viz-frame" src="viz2_decade_trend.html" title="Visualization 2: Complaint Share Trend (2001–2019)"></iframe>
+
+    <div class="design-rationale">
+      <h3>Design Decisions</h3>
+      <div class="design-item"><strong>1. Temporal Aggregation (4-Year Windows):</strong> <span class="placeholder">[REPLACE] Why aggregate into 4-year periods rather than annual or raw years? How does this smoothing emphasize trends while obscuring volatility?</span></div>
+      <div class="design-item"><strong>2. Line Chart vs. Area Chart:</strong> <span class="placeholder">[REPLACE] Why use lines with dashes for some groups and solid fill for Black? How does visual differentiation guide interpretation?</span></div>
+      <div class="design-item"><strong>3. Declining Black Representation:</strong> <span class="placeholder">[REPLACE] How does emphasizing the decline from 66.9% to 58.3% frame the narrative differently than viz1's focus on absolute disparities?</span></div>
+      <div class="design-item"><strong>4. Annotations (Bloomberg Era, Stop-and-Frisk):</strong> <span class="placeholder">[REPLACE] What story do the historical annotations tell? How might a reader interpret these marks differently?</span></div>
+      <div class="design-item"><strong>Deceptiveness Score (-2 to +2):</strong> <span class="placeholder">[REPLACE] Rate this visualization's persuasion techniques and justify your score.</span></div>
+    </div>
+  </div>
+
+  <!-- DESIGN RATIONALE SECTION -->
+  <div class="section" id="design-rationale">
+    <h2>Comparative Design Rationale</h2>
+
+    <div class="writeup-section">
+      <h3>Proposition & Opposing Arguments</h3>
+      <div class="placeholder">
+        [REPLACE] State the central proposition your two visualizations address (e.g., "Has racial disparity in NYPD complaints improved or persisted?").
+        Explain how Viz 1 and Viz 2 argue opposite sides of this claim.
+      </div>
+    </div>
+
+    <div class="writeup-section">
+      <h3>Data Transformations</h3>
+      <div class="placeholder">
+        [REPLACE] Explain what data transformations you applied beyond basic filtering/sorting:
+        <ul style="margin-top: 10px; margin-left: 20px;">
+          <li>For Viz 1: How did you compute the disparity ratio? Why normalize by population share?</li>
+          <li>For Viz 2: How did you bin years into periods? Why exclude pre-2001 data?</li>
+          <li>What assumptions underlie your transformations?</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="writeup-section">
+      <h3>Persuasive Framing</h3>
+      <div class="placeholder">
+        [REPLACE] For each visualization, explain:
+        <ul style="margin-top: 10px; margin-left: 20px;">
+          <li>What story does your title, subtitle, and axis labels tell?</li>
+          <li>Which design choices guide readers toward your intended interpretation?</li>
+          <li>What alternative interpretations might a skeptical reader make?</li>
+          <li>How might you make these visualizations MORE or LESS deceptive?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- WRITE-UP SECTION -->
+  <div class="section" id="writeup">
+    <h2>Write-up</h2>
+
+    <div class="writeup-section">
+      <h3>1. Introduction & Context</h3>
+      <div class="placeholder">
+        [REPLACE] Introduce the dataset (ProPublica CCRB data, 33,358 records, 1985–2020).
+        Why is this topic important? What is the core question your visualizations explore?
+      </div>
+    </div>
+
+    <div class="writeup-section">
+      <h3>2. Data & Methodology</h3>
+      <div class="placeholder">
+        [REPLACE] Describe:
+        <ul style="margin-top: 10px; margin-left: 20px;">
+          <li>Data source and structure (rows, columns, date range)</li>
+          <li>Data cleaning & exclusions (e.g., rows with unknown ethnicity, pre-2001 records)</li>
+          <li>Population reference data used (NYC 2015 ACS 5-year estimates)</li>
+          <li>Computational steps for each visualization</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="writeup-section">
+      <h3>3. Visualization 1: Disparity Analysis</h3>
+      <div class="placeholder">
+        [REPLACE] Analyze Viz 1:
+        <ul style="margin-top: 10px; margin-left: 20px;">
+          <li>What does the data show? (e.g., Black: 2.55×, Hispanic: 0.81×, White: 0.31×, Asian: 0.14×)</li>
+          <li>Why does this framing matter?</li>
+          <li>What story is this visualization telling?</li>
+          <li>What perspective does it privilege or exclude?</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="writeup-section">
+      <h3>4. Visualization 2: Temporal Trends</h3>
+      <div class="placeholder">
+        [REPLACE] Analyze Viz 2:
+        <ul style="margin-top: 10px; margin-left: 20px;">
+          <li>What temporal patterns emerge? (e.g., Black share declining 66.9% → 58.3%)</li>
+          <li>How do annotations (Bloomberg era, stop-and-frisk) shape interpretation?</li>
+          <li>Does this visualization support a different conclusion than Viz 1? Why?</li>
+          <li>What is obscured by focusing on trends rather than absolute disparities?</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="writeup-section">
+      <h3>5. Persuasive Techniques & Ethical Considerations</h3>
+      <div class="placeholder">
+        [REPLACE] Reflect on your design choices:
+        <ul style="margin-top: 10px; margin-left: 20px;">
+          <li>List 3–5 design decisions in each visualization and their persuasive intent</li>
+          <li>Are any of these choices deceptive? Where do you draw the line between "framing" and "deception"?</li>
+          <li>How would you redesign either visualization to be more neutral or balanced?</li>
+          <li>What is your responsibility as a data communicator?</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="writeup-section">
+      <h3>6. Limitations & Caveats</h3>
+      <div class="placeholder">
+        [REPLACE] Acknowledge:
+        <ul style="margin-top: 10px; margin-left: 20px;">
+          <li>What does CCRB data not capture? (e.g., unreported complaints, NYPD-initiated complaints vs. civilian complaints)</li>
+          <li>What assumptions underlie your population estimates?</li>
+          <li>How might missing data or selection bias affect conclusions?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- REFLECTION SECTION -->
+  <div class="section" id="reflection">
+    <h2>Reflection: Persuasion & Ethics</h2>
+
+    <div class="writeup-section">
+      <h3>Personal Definition of Acceptable Persuasion</h3>
+      <div class="placeholder">
+        [REPLACE] Answer:
+        <ul style="margin-top: 10px; margin-left: 20px;">
+          <li>What is the difference between "persuasive framing" and "deception" to you?</li>
+          <li>Where is the line?</li>
+          <li>Give an example of each from your visualizations.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="writeup-section">
+      <h3>Self-Assessment of Deceptiveness</h3>
+      <div class="placeholder">
+        [REPLACE] For each visualization, score your design on a scale of -2 to +2:
+        <ul style="margin-top: 10px; margin-left: 20px;">
+          <li><strong>-2:</strong> Highly deceptive (misleading in significant ways)</li>
+          <li><strong>-1:</strong> Moderately deceptive (frames data misleadingly)</li>
+          <li><strong>0:</strong> Neutral (presents data fairly)</li>
+          <li><strong>+1:</strong> Subtly persuasive (frames truthfully but emphasizes certain aspects)</li>
+          <li><strong>+2:</strong> Transparently persuasive (clearly advocates while remaining honest)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="writeup-section">
+      <h3>Learning Reflections</h3>
+      <div class="placeholder">
+        [REPLACE] Reflect on:
+        <ul style="margin-top: 10px; margin-left: 20px;">
+          <li>What did you learn about the power (and danger) of data visualization?</li>
+          <li>How has this project changed your perspective on reading charts and statistics?</li>
+          <li>What responsibility do you feel as a data communicator?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>DSC 106 Project 2 · UCSD Data Visualization II</p>
+  <p>Data source: ProPublica / NYC Civilian Complaint Review Board</p>
+  <p>Last updated: April 2026</p>
+</div>
+
+</body>
+</html>

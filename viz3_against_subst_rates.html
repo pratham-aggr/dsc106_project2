@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NYPD Complaints — Substantiation Rates by Race</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:      #ffffff;
+    --surface: #f5f5f3;
+    --text:    #1a1a1a;
+    --muted:   #6b6b6b;
+    --teal:    #0F6E56;
+    --teal-lt: #1D9E75;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #111113; --surface: #1c1c1f; --text: #f0f0f0; --muted: #999; }
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 48px 40px 64px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+  }
+  h1 { font-size: 26px; font-weight: 500; line-height: 1.3; margin-bottom: 8px; }
+  .subtitle { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 36px; max-width: 700px; }
+
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 36px; }
+  .card { background: var(--surface); padding: 14px 16px; border-left: 3px solid var(--c); }
+  .card-label { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+  .card-value { font-size: 30px; font-weight: 500; color: var(--c); line-height: 1; margin-bottom: 5px; }
+  .card-sub { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  .chart-wrap { position: relative; width: 100%; height: 300px; }
+
+  .legend { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+  .insight {
+    margin-top: 32px; background: var(--surface);
+    padding: 16px 20px; border-left: 2px solid var(--teal);
+    font-size: 13px; color: var(--muted); line-height: 1.7;
+  }
+  .insight strong { color: var(--text); font-weight: 500; }
+  .source {
+    margin-top: 24px; font-size: 11px; color: var(--muted);
+    border-top: 0.5px solid rgba(128,128,128,0.2); padding-top: 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="eyebrow">Visualization 1 of 2 · Against the proposition</div>
+<h1>The CCRB substantiates complaints at nearly equal rates regardless of complainant race</h1>
+<p class="subtitle">
+  If the NYPD systematically targeted minorities, we would expect minority complaints to be
+  more credible — substantiated at higher rates. Instead, White and Asian complainants have
+  <em>higher</em> substantiation rates than Black complainants, and the differences are small.
+  All figures computed directly from the ProPublica CCRB dataset.
+</p>
+
+<div class="cards">
+  <div class="card" style="--c:#5F5E5A;">
+    <div class="card-label">Asian complainants</div>
+    <div class="card-value">29.1%</div>
+    <div class="card-sub">155 substantiated<br>of 532 complaints</div>
+  </div>
+  <div class="card" style="--c:#185FA5;">
+    <div class="card-label">White complainants</div>
+    <div class="card-value">27.9%</div>
+    <div class="card-sub">777 substantiated<br>of 2,783 complaints</div>
+  </div>
+  <div class="card" style="--c:#854F0B;">
+    <div class="card-label">Hispanic complainants</div>
+    <div class="card-value">24.5%</div>
+    <div class="card-sub">1,572 substantiated<br>of 6,424 complaints</div>
+  </div>
+  <div class="card" style="--c:#A32D2D;">
+    <div class="card-label">Black complainants</div>
+    <div class="card-value">23.8%</div>
+    <div class="card-sub">4,073 substantiated<br>of 17,114 complaints</div>
+  </div>
+</div>
+
+<div class="chart-wrap">
+  <canvas id="substChart" role="img"
+    aria-label="Grouped bar chart showing complaint volume and substantiation rate side by side for each racial group. Asian 29.1%, White 27.9%, Hispanic 24.5%, Black 23.8%. The spread between highest and lowest rate is just 5.3 percentage points.">
+    Substantiation rates: Asian 29.1%, White 27.9%, Hispanic 24.5%, Black 23.8%.
+    Spread of only 5.3 percentage points across all four groups.
+  </canvas>
+</div>
+
+<div class="legend" id="legend">
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#1D9E75;"></div>
+    Substantiated complaints
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#D3D1C7;"></div>
+    Not substantiated
+  </div>
+  <div class="legend-item" style="margin-left:8px;">
+    <div class="legend-dot" style="width:16px;height:3px;border-radius:0;background:#444;"></div>
+    Substantiation rate (%)
+  </div>
+</div>
+
+<div class="insight">
+  <strong>What this means:</strong> The CCRB investigated every complaint in this dataset
+  through a full process including civilian sworn statements. Across all racial groups,
+  roughly <strong>one in four complaints</strong> was substantiated. White complainants had
+  the <em>second-highest</em> rate at 27.9%, while Black complainants had the lowest at 23.8%
+  — a gap of just <strong>5.3 percentage points</strong> across all four groups. If police were
+  disproportionately targeting minorities with unjustified stops and force, we would expect
+  the opposite pattern: minority complaints should be substantiated <em>more</em>, not less.
+</div>
+
+<div class="source">
+  Substantiation defined as any board_disposition beginning with "Substantiated".
+  Includes: Charges, Command Discipline A/B, Formalized Training, Command Lvl Instructions, Instructions.
+  Source: ProPublica / NYC Civilian Complaint Review Board · 33,358 records · Sep 1985 – Jan 2020.
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const isDark    = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const tickColor = isDark ? '#999' : '#666';
+const gridColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)';
+
+const DATA = [
+  { label: 'Asian',    total: 532,   subst: 155,  rate: 29.1 },
+  { label: 'White',    total: 2783,  subst: 777,  rate: 27.9 },
+  { label: 'Hispanic', total: 6424,  subst: 1572, rate: 24.5 },
+  { label: 'Black',    total: 17114, subst: 4073, rate: 23.8 },
+];
+
+const SUBST_COLOR  = isDark ? '#1D9E75' : '#0F6E56';
+const UNSUBST_COLOR= isDark ? '#444441' : '#D3D1C7';
+const RATE_COLOR   = isDark ? '#f0f0f0' : '#1a1a1a';
+
+new Chart(document.getElementById('substChart'), {
+  type: 'bar',
+  data: {
+    labels: DATA.map(d => d.label),
+    datasets: [
+      {
+        label: 'Substantiated',
+        data: DATA.map(d => d.subst),
+        backgroundColor: SUBST_COLOR + 'cc',
+        borderColor: SUBST_COLOR,
+        borderWidth: 1.5,
+        borderRadius: 2,
+        stack: 'complaints',
+      },
+      {
+        label: 'Not substantiated',
+        data: DATA.map(d => d.total - d.subst),
+        backgroundColor: UNSUBST_COLOR + 'aa',
+        borderColor: UNSUBST_COLOR,
+        borderWidth: 1,
+        borderRadius: 0,
+        stack: 'complaints',
+      },
+      {
+        label: 'Substantiation rate',
+        data: DATA.map(d => d.rate),
+        type: 'line',
+        yAxisID: 'yRate',
+        borderColor: RATE_COLOR,
+        backgroundColor: 'transparent',
+        borderWidth: 2,
+        pointRadius: 6,
+        pointBackgroundColor: DATA.map(d => {
+          if (d.label === 'White' || d.label === 'Asian') return '#185FA5';
+          return '#A32D2D';
+        }),
+        pointBorderColor: isDark ? '#111' : '#fff',
+        pointBorderWidth: 2,
+        tension: 0.2,
+        stack: 'rate',
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          title: items => items[0].label + ' complainants',
+          label: ctx => {
+            const d = DATA[ctx.dataIndex];
+            if (ctx.dataset.label === 'Substantiated')
+              return ` Substantiated: ${d.subst.toLocaleString()} (${d.rate}%)`;
+            if (ctx.dataset.label === 'Not substantiated')
+              return ` Not substantiated: ${(d.total - d.subst).toLocaleString()}`;
+            if (ctx.dataset.label === 'Substantiation rate')
+              return ` Rate: ${d.rate}%`;
+            return null;
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        stacked: true,
+        grid: { display: false },
+        ticks: { color: isDark ? '#ddd' : '#222', font: { size: 13, weight: '500' } }
+      },
+      y: {
+        stacked: true,
+        grid: { color: gridColor },
+        ticks: {
+          color: tickColor, font: { size: 12 },
+          callback: v => v.toLocaleString()
+        },
+        title: { display: true, text: 'number of complaints', color: tickColor, font: { size: 12 } }
+      },
+      yRate: {
+        position: 'right',
+        min: 0, max: 45,
+        grid: { display: false },
+        ticks: {
+          color: tickColor, font: { size: 12 },
+          callback: v => v + '%'
+        },
+        title: { display: true, text: 'substantiation rate (%)', color: tickColor, font: { size: 12 } }
+      }
+    }
+  },
+  plugins: [{
+    afterDraw(chart) {
+      const { ctx, scales: { yRate, x } } = chart;
+      DATA.forEach((d, i) => {
+        const xPos = x.getPixelForValue(i);
+        const yPos = yRate.getPixelForValue(d.rate);
+        ctx.save();
+        ctx.fillStyle = tickColor;
+        ctx.font = `500 12px -apple-system, sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.fillText(d.rate + '%', xPos, yPos - 14);
+        ctx.restore();
+      });
+    }
+  }]
+});
+</script>
+</body>
+</html>
