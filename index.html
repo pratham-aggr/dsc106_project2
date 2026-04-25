@@ -12,13 +12,10 @@
     }
 
     :root {
-      --white: #FFFFFF;
-      --bg: #F8F9FA;
       --text: #1F2937;
       --muted: #6B7280;
       --border: #E5E7EB;
       --accent: #0891B2;
-      --hover: #06B6D4;
     }
 
     html {
@@ -27,24 +24,22 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
-      background-color: var(--bg);
+      background-color: #ffffff;
       color: var(--text);
       line-height: 1.6;
-      font-size: 16px;
     }
 
     .container {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 24px;
     }
 
     /* HEADER */
     .header {
-      background: var(--white);
-      padding: 50px 0;
+      padding: 60px 0 40px;
       border-bottom: 1px solid var(--border);
-      margin-bottom: 50px;
+      margin-bottom: 60px;
     }
 
     .header h1 {
@@ -57,23 +52,22 @@
     .header .subtitle {
       font-size: 18px;
       color: var(--muted);
-      margin-bottom: 6px;
+      margin-bottom: 30px;
       font-weight: 400;
     }
 
     .header .course {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--accent);
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       font-weight: 600;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .nav-links {
       display: flex;
-      gap: 24px;
-      margin-top: 30px;
+      gap: 32px;
       flex-wrap: wrap;
     }
 
@@ -82,7 +76,6 @@
       color: var(--text);
       text-decoration: none;
       font-weight: 500;
-      position: relative;
       transition: color 0.2s;
     }
 
@@ -90,158 +83,94 @@
       color: var(--accent);
     }
 
-    /* MAIN CONTENT */
-    .content {
-      display: grid;
-      gap: 60px;
+    /* VIZ SECTIONS */
+    .viz-section {
       margin-bottom: 80px;
     }
 
-    .viz-section {
-      background: var(--white);
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      transition: box-shadow 0.3s;
-    }
-
-    .viz-section:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-
-    .viz-header {
-      padding: 32px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .viz-header h2 {
-      font-size: 22px;
+    .viz-section h2 {
+      font-size: 28px;
       font-weight: 700;
       margin-bottom: 8px;
       color: var(--text);
     }
 
-    .viz-header .argument {
-      font-size: 14px;
+    .viz-section .argument {
+      font-size: 15px;
       color: var(--muted);
-      font-style: italic;
-      line-height: 1.5;
+      margin-bottom: 24px;
+      line-height: 1.6;
     }
 
     .viz-frame {
       width: 100%;
       height: 1200px;
-      border: none;
-      background: var(--bg);
-    }
-
-    .viz-footer {
-      padding: 32px;
-      border-top: 1px solid var(--border);
-      background: #FAFBFC;
-    }
-
-    .design-decisions {
-      margin-top: 0;
-    }
-
-    .design-decisions h3 {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 16px;
-    }
-
-    .decision-item {
-      margin-bottom: 12px;
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--text);
-    }
-
-    .decision-item strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .placeholder {
-      padding: 12px 14px;
-      background: #F0F9FC;
-      border-left: 3px solid var(--accent);
-      border-radius: 4px;
-      margin-top: 6px;
-      font-size: 13px;
-      color: var(--muted);
-      font-style: italic;
-      display: inline-block;
-    }
-
-    /* WRITEUP SECTION */
-    .writeup-section {
-      background: var(--white);
-      border-radius: 12px;
-      padding: 40px;
       border: 1px solid var(--border);
-      margin-bottom: 40px;
+      border-radius: 8px;
+      margin-bottom: 32px;
     }
 
-    .writeup-section h2 {
+
+    /* SECTIONS */
+    .section {
+      margin-bottom: 80px;
+    }
+
+    .section h2 {
       font-size: 28px;
       font-weight: 700;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
       color: var(--text);
     }
 
-    .writeup-subsection {
-      margin-bottom: 32px;
-    }
-
-    .writeup-subsection h3 {
+    .section h3 {
       font-size: 16px;
       font-weight: 700;
       margin-bottom: 12px;
       color: var(--text);
+      margin-top: 24px;
     }
 
-    .writeup-subsection ul {
+    .section h3:first-child {
+      margin-top: 0;
+    }
+
+    .section ul {
       margin-left: 20px;
       margin-top: 8px;
     }
 
-    .writeup-subsection li {
+    .section li {
       margin-bottom: 8px;
       color: var(--text);
       font-size: 15px;
     }
 
-    .placeholder-large {
+    .placeholder-block {
       padding: 16px;
-      background: #F0F9FC;
+      background: #F3F4F6;
       border-left: 3px solid var(--accent);
       border-radius: 4px;
       color: var(--muted);
       font-size: 14px;
-      line-height: 1.6;
       margin-top: 12px;
+      line-height: 1.6;
     }
 
     /* FOOTER */
     .footer {
-      background: var(--white);
       border-top: 1px solid var(--border);
       padding: 40px 0;
       text-align: center;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 12px;
+      margin-top: 60px;
     }
 
     .footer p {
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
-    /* RESPONSIVE */
     @media (max-width: 768px) {
       .header h1 {
         font-size: 28px;
@@ -252,45 +181,16 @@
       }
 
       .nav-links {
-        gap: 16px;
+        gap: 20px;
       }
 
       .viz-frame {
         height: 700px;
       }
 
-      .viz-header, .viz-footer {
-        padding: 24px;
+      .section h2 {
+        font-size: 24px;
       }
-
-      .writeup-section {
-        padding: 24px;
-      }
-    }
-
-    /* COMPARISON GRID */
-    .comparison-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-top: 16px;
-    }
-
-    @media (max-width: 768px) {
-      .comparison-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .comparison-card {
-      background: #F0F9FC;
-      padding: 16px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-    }
-
-    .comparison-card strong {
-      color: var(--text);
     }
   </style>
 </head>
@@ -312,88 +212,39 @@
 </header>
 
 <!-- CONTENT -->
-<main class="container content">
+<main class="container">
 
   <!-- VIZ 1 -->
   <section class="viz-section" id="viz1">
-    <div class="viz-header">
-      <h2>Disparity Ratio by Race</h2>
-      <p class="argument">Black New Yorkers face systematic over-representation in NYPD complaints at 2.55× their population share.</p>
-    </div>
+    <h2>Disparity Ratio by Race</h2>
+    <p class="argument">Black New Yorkers face systematic over-representation in NYPD complaints at 2.55× their population share.</p>
     <iframe class="viz-frame" src="viz1_disparity_ratio.html" title="Visualization 1: Disparity Ratio by Race"></iframe>
-    <div class="viz-footer">
-      <div class="design-decisions">
-        <h3>Design Decisions</h3>
-        <div class="decision-item"><strong>1. Disparity Ratio Metric:</strong> <span class="placeholder">[REPLACE] Explain the ratio framing</span></div>
-        <div class="decision-item"><strong>2. Card-Based Layout:</strong> <span class="placeholder">[REPLACE] Describe layout choices</span></div>
-        <div class="decision-item"><strong>3. Color Scheme:</strong> <span class="placeholder">[REPLACE] Explain color choices</span></div>
-        <div class="decision-item"><strong>4. Reference Line:</strong> <span class="placeholder">[REPLACE] Explain 1.0× baseline</span></div>
-        <div class="decision-item"><strong>Deceptiveness (-2 to +2):</strong> <span class="placeholder">[REPLACE]</span></div>
-      </div>
-    </div>
   </section>
 
   <!-- VIZ 2 -->
   <section class="viz-section" id="viz2">
-    <div class="viz-header">
-      <h2>Complaint Share Trend (2001–2019)</h2>
-      <p class="argument">Over nearly two decades, racial composition of complaints has shifted, with declining Black representation and increasing Asian representation.</p>
-    </div>
+    <h2>Complaint Share Trend (2001–2019)</h2>
+    <p class="argument">Over nearly two decades, racial composition of complaints has shifted, with declining Black representation and increasing Asian representation.</p>
     <iframe class="viz-frame" src="viz2_decade_trend.html" title="Visualization 2: Complaint Share Trend"></iframe>
-    <div class="viz-footer">
-      <div class="design-decisions">
-        <h3>Design Decisions</h3>
-        <div class="decision-item"><strong>1. Temporal Aggregation:</strong> <span class="placeholder">[REPLACE] Explain period binning</span></div>
-        <div class="decision-item"><strong>2. Line vs. Area Chart:</strong> <span class="placeholder">[REPLACE] Explain visual choices</span></div>
-        <div class="decision-item"><strong>3. Declining Representation:</strong> <span class="placeholder">[REPLACE] Explain narrative framing</span></div>
-        <div class="decision-item"><strong>4. Historical Annotations:</strong> <span class="placeholder">[REPLACE] Explain context markers</span></div>
-        <div class="decision-item"><strong>Deceptiveness (-2 to +2):</strong> <span class="placeholder">[REPLACE]</span></div>
-      </div>
-    </div>
   </section>
 
   <!-- RATIONALE -->
-  <section class="writeup-section" id="rationale">
+  <section class="section" id="rationale">
     <h2>Design Rationale</h2>
+    <h3>Proposition & Opposing Arguments</h3>
+    <div class="placeholder-block">[Place write-up here]</div>
 
-    <div class="writeup-subsection">
-      <h3>Proposition & Opposing Arguments</h3>
-      <div class="placeholder-large">
-        [REPLACE] State the central proposition your two visualizations address. Explain how Viz 1 and Viz 2 argue opposite sides of this claim.
-      </div>
-    </div>
+    <h3>Data Transformations</h3>
+    <div class="placeholder-block">[Place write-up here]</div>
 
-    <div class="writeup-subsection">
-      <h3>Data Transformations</h3>
-      <div class="placeholder-large">
-        [REPLACE] Explain what data transformations you applied:
-        <ul style="margin-top: 12px; margin-left: 20px;">
-          <li>For Viz 1: How did you compute the disparity ratio?</li>
-          <li>For Viz 2: How did you bin years into periods?</li>
-          <li>What assumptions underlie your transformations?</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="writeup-subsection">
-      <h3>Persuasive Framing</h3>
-      <div class="placeholder-large">
-        [REPLACE] For each visualization, explain:
-        <ul style="margin-top: 12px; margin-left: 20px;">
-          <li>What story does your title and axis labels tell?</li>
-          <li>Which design choices guide readers toward your interpretation?</li>
-          <li>What alternative interpretations might a skeptical reader make?</li>
-        </ul>
-      </div>
-    </div>
+    <h3>Persuasive Framing</h3>
+    <div class="placeholder-block">[Place write-up here]</div>
   </section>
 
   <!-- WRITEUP -->
-  <section class="writeup-section" id="writeup">
+  <section class="section" id="writeup">
     <h2>Write-up</h2>
-    <div class="placeholder-large" style="padding: 24px; font-size: 16px; color: var(--muted);">
-      [Place write-up here]
-    </div>
+    <div class="placeholder-block">[Place write-up here]</div>
   </section>
 
 </main>
@@ -402,6 +253,7 @@
 <footer class="footer">
   <div class="container">
     <p><strong>DSC 106</strong> · Data Visualization II</p>
+    <p>Eric Zhao (e3zhao@ucsd.edu), Pratham Aggarwal (praggarwal@ucsd.edu), Sarah Colbath (mcolbath@ucsd.edu)</p>
     <p>ProPublica / NYC Civilian Complaint Review Board Dataset</p>
   </div>
 </footer>
