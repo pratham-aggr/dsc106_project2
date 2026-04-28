@@ -291,9 +291,9 @@
 
     <p class="rationale-label">Design Decisions and Rationale</p>
     <ul class="rationale-list">
-      <li><strong>Bar Chart Format:</strong> We chose a grouped bar chart to enable direct side-by-side comparison of complaint rates across racial groups. This format immediately makes disparities visible to readers without requiring them to synthesize data from multiple sources.</li>
-      <li><strong>Disparity Ratio Metric:</strong> By presenting the data as ratios relative to the average, we highlight the magnitude of overrepresentation for each group. A ratio > 1.0 clearly shows which communities are disproportionately targeted.</li>
-      <li><strong>Color Consistency & Labeling:</strong> We used distinct, accessible colors for each racial category and included clear labels and values. This reduces cognitive load and ensures the main claim is immediately understandable at a glance.</li>
+      <li><strong>Disparity Ratio Metric:</strong> Rather than using raw complaint counts, we normalize each group's complaint share by its NYC population share to produce a disparity ratio. This prevents the misleading impression that a group appears often simply because it is large, and makes the degree of overrepresentation immediately legible: a ratio of 2.55× means Black New Yorkers appear in complaints at more than twice the rate their population share alone would predict.</li>
+      <li><strong>Horizontal Bar Chart with Proportional Baseline:</strong> A horizontal bar chart sorted from highest to lowest ratio makes group-to-group comparison effortless for readers. A dashed vertical line at 1.0 anchors the chart at "perfectly proportional," so viewers can instantly see which groups are over- or under-represented without doing any mental arithmetic.</li>
+      <li><strong>Zero-Baseline Axis:</strong> All bars start at 0, which prevents the deceptive practice of axis truncation. Starting the axis at any other value would visually exaggerate or shrink the differences between groups, so a zero baseline keeps the magnitudes honest and directly interpretable.</li>
     </ul>
   </section>
 
@@ -307,9 +307,9 @@
 
     <p class="rationale-label">Design Decisions and Rationale</p>
     <ul class="rationale-list">
-      <li><strong>Substantiation Rate Metric:</strong> Rather than raw complaint counts, we focus on the percentage of complaints that were actually substantiated for each racial group. This adds nuance by showing what proportion of allegations led to findings of police misconduct.</li>
-      <li><strong>Comparative Context:</strong> By displaying substantiation rates across all groups, we show that while complaint volumes differ, the substantiation process itself may vary by race. This complicates a simple "more complaints = more bias" narrative.</li>
-      <li><strong>Visual Consistency:</strong> We maintained similar visual formatting (bar chart, clear labels, accessible colors) as the first visualization to allow readers to compare both perspectives cohesively and draw their own conclusions about systemic bias.</li>
+      <li><strong>Dual-Axis Combo Chart — Line over Stacked Bars:</strong> The stacked bars preserve the raw complaint volumes so we are not lying by omission about the large number of Black complainants, but the overlaid rate line dominates the visual. Readers are naturally drawn to the flat, nearly-horizontal line, which reinforces the title's claim that substantiation rates are roughly equal across groups. This is the core of the visualization's persuasive power: volume is shown but rate is what you see.</li>
+      <li><strong>Descending X-Axis Order by Substantiation Rate:</strong> Groups are ordered from highest to lowest substantiation rate (Asian → White → Hispanic → Black). This places Asian and White complainants at the left where the eye starts reading, immediately anchoring the narrative that non-Black groups have higher rates. It also means the bar for Black complainants — the largest bar by far — appears last, after the reader has already absorbed the "equal rates" message from the line.</li>
+      <li><strong>Omitting Complaint Severity:</strong> The chart counts complaints but does not distinguish between minor allegations (discourtesy, language) and serious ones (excessive force, sexual misconduct). This is an ethically significant omission: if Black complainants disproportionately file complaints about more serious conduct, a lower raw substantiation rate could still reflect a higher severity of misconduct rather than equal treatment. By focusing only on rate, the visualization removes this context from the reader entirely.</li>
     </ul>
   </section>
 
