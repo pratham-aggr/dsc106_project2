@@ -34,7 +34,7 @@
   .card-value { font-size: 36px; font-weight: 500; color: var(--c); line-height: 1; margin-bottom: 5px; }
   .card-sub { font-size: 13px; color: var(--muted); line-height: 1.5; }
 
-  .chart-wrap { position: relative; width: 100%; height: 340px; }
+  .chart-wrap { position: relative; width: 100%; height: 420px; }
 
   .legend { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
   .legend-item { display: flex; align-items: center; gap: 7px; font-size: 14px; color: var(--muted); }
@@ -64,22 +64,22 @@
 </p>
 
 <div class="cards">
-  <div class="card" style="--c:#8B5CF6;">
+  <div class="card" style="--c:#6D28D9;">
     <div class="card-label">Asian complainants</div>
     <div class="card-value">29.1%</div>
     <div class="card-sub">155 substantiated<br>of 532 complaints</div>
   </div>
-  <div class="card" style="--c:#10B981;">
+  <div class="card" style="--c:#047857;">
     <div class="card-label">White complainants</div>
     <div class="card-value">27.9%</div>
     <div class="card-sub">777 substantiated<br>of 2,783 complaints</div>
   </div>
-  <div class="card" style="--c:#F59E0B;">
+  <div class="card" style="--c:#B45309;">
     <div class="card-label">Hispanic complainants</div>
     <div class="card-value">24.5%</div>
     <div class="card-sub">1,572 substantiated<br>of 6,424 complaints</div>
   </div>
-  <div class="card" style="--c:#3B82F6;">
+  <div class="card" style="--c:#1D4ED8;">
     <div class="card-label">Black complainants</div>
     <div class="card-value">23.8%</div>
     <div class="card-sub">4,073 substantiated<br>of 17,114 complaints</div>
@@ -96,15 +96,15 @@
 
 <div class="legend" id="legend">
   <div class="legend-item">
-    <div class="legend-dot" style="background:#0891B2;"></div>
+    <div class="legend-dot" style="background:#0E7490;"></div>
     Substantiated complaints
   </div>
   <div class="legend-item">
-    <div class="legend-dot" style="background:#D3D1C7;"></div>
+    <div class="legend-dot" style="background:#9CA3AF;"></div>
     Not substantiated
   </div>
   <div class="legend-item" style="margin-left:8px;">
-    <div class="legend-dot" style="width:16px;height:3px;border-radius:0;background:#444;"></div>
+    <div class="legend-dot" style="width:16px;height:3px;border-radius:0;background:#1F2937;"></div>
     Substantiation rate (%)
   </div>
 </div>
@@ -175,7 +175,7 @@ new Chart(document.getElementById('substChart'), {
         borderWidth: 2,
         pointRadius: 6,
         pointBackgroundColor: DATA.map(d => ({
-          Asian: '#8B5CF6', White: '#10B981', Hispanic: '#F59E0B', Black: '#3B82F6'
+          Asian: '#6D28D9', White: '#047857', Hispanic: '#B45309', Black: '#1D4ED8'
         }[d.label])),
         pointBorderColor: '#fff',
         pointBorderWidth: 2,
