@@ -21,3 +21,6 @@ Specific Ordering of the X-Axis By Descending Order : -1.0
 We made the choice of sorting the number of substantiated complaints by descending order. This  would place complaints made by Asian New Yorkers to be at the highest. This matches with our narrative that “Asian and White individuals actually have higher complaint substantiation rates than Black individuals.” Emphasizing the order visually really reinforces that there is truth in the claim that we are making and readers are more easily persuaded into believing the title’s claim. 
 Color Palette for Stacked Bars: 1.0
 We decided to use distinctive colors to label the different types of claims with green being “Substantiated” and a background grey representing “Unsubstantiated.” This allows readers to more easily identify the types of claims being made and it is a logical and readable choice to make to convey information to readers. There is also consistency throughout each racial group’s bar. It also visually reinforces the claim the title is making for Black individuals. 
+
+
+
