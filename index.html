@@ -5,209 +5,277 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DSC 106 Project 2: NYPD Complaint Data Visualization</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --text: #1F2937;
       --muted: #6B7280;
       --border: #E5E7EB;
       --accent: #0891B2;
+      --nav-h: 52px;
     }
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--nav-h) + 28px);
     }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
-      background-color: #ffffff;
+      background: #fff;
       color: var(--text);
       line-height: 1.6;
     }
 
-    .container {
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+
+    /* ── STICKY NAV ── */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sticky-nav .inner {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 28px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    /* HEADER */
-    .header {
-      padding: 60px 0 40px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 60px;
-    }
-
-    .header h1 {
-      font-size: 36px;
+    .sticky-nav .brand {
+      font-size: 13px;
       font-weight: 700;
-      margin-bottom: 8px;
       color: var(--text);
     }
 
-    .header .subtitle {
-      font-size: 18px;
-      color: var(--muted);
-      margin-bottom: 30px;
-      font-weight: 400;
-    }
-
-    .header .course {
-      font-size: 12px;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      flex-wrap: wrap;
-    }
+    .nav-links { display: flex; gap: 28px; }
 
     .nav-links a {
-      font-size: 14px;
-      color: var(--text);
-      text-decoration: none;
+      font-size: 13px;
       font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
       transition: color 0.2s;
     }
 
-    .nav-links a:hover {
-      color: var(--accent);
-    }
+    .nav-links a:hover { color: var(--accent); }
 
-    /* VIZ SECTIONS */
-    .viz-section {
+    /* ── HEADER ── */
+    .header {
+      padding: 76px 0 60px;
+      border-bottom: 1px solid var(--border);
       margin-bottom: 80px;
     }
 
-    .viz-section h2 {
-      font-size: 28px;
+    .header .eyebrow {
+      font-size: 11px;
       font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 18px;
     }
 
-    .viz-section .argument {
-      font-size: 15px;
-      color: var(--muted);
-      margin-bottom: 24px;
-      line-height: 1.6;
+    .header h1 {
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 12px;
     }
+
+    .header .subtitle {
+      font-size: 19px;
+      color: var(--muted);
+      font-weight: 400;
+      line-height: 1.5;
+      margin-bottom: 22px;
+    }
+
+    .header .authors {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── VIZ SECTIONS ── */
+    .viz-section { margin-bottom: 100px; }
+
+    .viz-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .viz-header h2 {
+      font-size: 26px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .badge {
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .badge-for    { background: #CFFAFE; color: #0E7490; }
+    .badge-against { background: #FEE2E2; color: #B91C1C; }
 
     .viz-frame {
       width: 100%;
       height: 1100px;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-bottom: 32px;
+      border-radius: 10px;
+      margin-bottom: 36px;
     }
 
-
-    /* SECTIONS */
-    .section {
-      margin-bottom: 80px;
-    }
-
-    .section h2 {
-      font-size: 28px;
+    /* ── RATIONALE ── */
+    .rationale-label {
+      font-size: 11px;
       font-weight: 700;
-      margin-bottom: 24px;
-      color: var(--text);
-    }
-
-    .section h3 {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text);
-      margin-top: 24px;
-    }
-
-    .section h3:first-child {
-      margin-top: 0;
-    }
-
-    .section ul {
-      margin-left: 20px;
-      margin-top: 8px;
-    }
-
-    .section li {
-      margin-bottom: 8px;
-      color: var(--text);
-      font-size: 15px;
-    }
-
-    .placeholder-block {
-      padding: 16px;
-      background: #F3F4F6;
-      border-left: 3px solid var(--accent);
-      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       color: var(--muted);
-      font-size: 14px;
-      margin-top: 12px;
-      line-height: 1.6;
+      margin-bottom: 14px;
     }
 
-    /* FOOTER */
+    .rationale-list {
+      list-style: none;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .rationale-list li {
+      padding: 16px 20px;
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text);
+    }
+
+    /* ── WRITE-UP ── */
+    .writeup-section { margin-bottom: 100px; }
+
+    .writeup-section > h2 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 44px;
+    }
+
+    .writeup-block { margin-bottom: 52px; }
+
+    .block-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .proposition-quote {
+      margin: 0;
+      padding: 28px 32px;
+      background: #f0f9ff;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    .reflection-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .reflection-card {
+      padding: 28px 32px;
+      background: #fafafa;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .reflection-card h4 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .reflection-card p {
+      font-size: 17px;
+      line-height: 1.95;
+      color: var(--text);
+      margin: 0 0 20px;
+    }
+
+    .reflection-card p:last-child { margin-bottom: 0; }
+
+    /* ── FOOTER ── */
     .footer {
       border-top: 1px solid var(--border);
       padding: 40px 0;
       text-align: center;
       color: var(--muted);
       font-size: 12px;
-      margin-top: 60px;
+      margin-top: 40px;
     }
 
-    .footer p {
-      margin-bottom: 4px;
-    }
+    .footer p { margin-bottom: 4px; }
 
+    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      .header h1 {
-        font-size: 28px;
-      }
-
-      .header .subtitle {
-        font-size: 16px;
-      }
-
-      .nav-links {
-        gap: 20px;
-      }
-
-      .viz-frame {
-        height: 880px;
-      }
-
-      .section h2 {
-        font-size: 24px;
-      }
+      .header h1         { font-size: 30px; }
+      .header .subtitle  { font-size: 16px; }
+      .viz-frame         { height: 880px; }
+      .sticky-nav .brand { display: none; }
+      .writeup-section > h2 { font-size: 26px; }
     }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="header">
-  <div class="container">
-    <div class="course">DSC 106 · Data Visualization II</div>
-    <h1>Persuasion in Data</h1>
-    <p class="subtitle">Racial Disparity in NYPD Civilian Complaint Review Board Allegations</p>
-    <p style="font-size: 13px; color: var(--muted); margin-bottom: 24px;">Eric Zhao (e3zhao@ucsd.edu), Pratham Aggarwal (praggarwal@ucsd.edu), Sarah Colbath (mcolbath@ucsd.edu)</p>
-    <nav class="nav-links">
+<!-- STICKY NAV -->
+<nav class="sticky-nav">
+  <div class="inner">
+    <span class="brand">Persuasion in Data</span>
+    <div class="nav-links">
       <a href="#viz1">Visualization 1</a>
       <a href="#viz2">Visualization 2</a>
       <a href="#writeup">Write-up</a>
-    </nav>
+    </div>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container">
+    <div class="eyebrow">DSC 106 · Data Visualization II</div>
+    <h1>Persuasion in Data</h1>
+    <p class="subtitle">Racial Disparity in NYPD Civilian Complaint Review Board Allegations</p>
+    <p class="authors">Eric Zhao (e3zhao@ucsd.edu) · Pratham Aggarwal (praggarwal@ucsd.edu) · Sarah Colbath (mcolbath@ucsd.edu)</p>
   </div>
 </header>
 
@@ -216,41 +284,55 @@
 
   <!-- VIZ 1 -->
   <section class="viz-section" id="viz1">
-    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-      <h2 style="margin: 0;">Disparity Ratio by Race</h2>
-      <span style="background: #C41E3A; color: white; padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">FOR</span>
+    <div class="viz-header">
+      <h2>Disparity Ratio by Race</h2>
+      <span class="badge badge-for">For</span>
     </div>
     <iframe class="viz-frame" src="viz1_disparity_ratio.html"></iframe>
 
-    <h3 style="margin-top: 32px; margin-bottom: 12px;">Design Decisions and Rationale:</h3>
-    <div class="placeholder-block">[RATIONALE_1]</div>
-    <div class="placeholder-block" style="margin-top: 8px;">[RATIONALE_2]</div>
-    <div class="placeholder-block" style="margin-top: 8px;">[RATIONALE_3]</div>
+    <p class="rationale-label">Design Decisions and Rationale</p>
+    <ul class="rationale-list">
+      <li><strong>Bar Chart Format:</strong> We chose a grouped bar chart to enable direct side-by-side comparison of complaint rates across racial groups. This format immediately makes disparities visible to readers without requiring them to synthesize data from multiple sources.</li>
+      <li><strong>Disparity Ratio Metric:</strong> By presenting the data as ratios relative to the average, we highlight the magnitude of overrepresentation for each group. A ratio > 1.0 clearly shows which communities are disproportionately targeted.</li>
+      <li><strong>Color Consistency & Labeling:</strong> We used distinct, accessible colors for each racial category and included clear labels and values. This reduces cognitive load and ensures the main claim is immediately understandable at a glance.</li>
+    </ul>
   </section>
 
-  <!-- VIZ 2 (AGAINST) -->
+  <!-- VIZ 2 -->
   <section class="viz-section" id="viz2">
-    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-      <h2 style="margin: 0;">Substantiation Rates by Race</h2>
-      <span style="background: #0891B2; color: white; padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">AGAINST</span>
+    <div class="viz-header">
+      <h2>Substantiation Rates by Race</h2>
+      <span class="badge badge-against">Against</span>
     </div>
     <iframe class="viz-frame" src="viz3_against_subst_rates.html"></iframe>
 
-    <h3 style="margin-top: 32px; margin-bottom: 12px;">Design Decisions and Rationale:</h3>
-    <div class="placeholder-block">[RATIONALE_1]</div>
-    <div class="placeholder-block" style="margin-top: 8px;">[RATIONALE_2]</div>
-    <div class="placeholder-block" style="margin-top: 8px;">[RATIONALE_3]</div>
+    <p class="rationale-label">Design Decisions and Rationale</p>
+    <ul class="rationale-list">
+      <li><strong>Substantiation Rate Metric:</strong> Rather than raw complaint counts, we focus on the percentage of complaints that were actually substantiated for each racial group. This adds nuance by showing what proportion of allegations led to findings of police misconduct.</li>
+      <li><strong>Comparative Context:</strong> By displaying substantiation rates across all groups, we show that while complaint volumes differ, the substantiation process itself may vary by race. This complicates a simple "more complaints = more bias" narrative.</li>
+      <li><strong>Visual Consistency:</strong> We maintained similar visual formatting (bar chart, clear labels, accessible colors) as the first visualization to allow readers to compare both perspectives cohesively and draw their own conclusions about systemic bias.</li>
+    </ul>
   </section>
 
-  <!-- WRITEUP -->
-  <section class="section" id="writeup">
+  <!-- WRITE-UP -->
+  <section class="writeup-section" id="writeup">
     <h2>Write-up</h2>
 
-    <h3>Proposition</h3>
-    <div class="placeholder-block">[STATE PROPOSITION]</div>
+    <div class="writeup-block">
+      <p class="block-label">Proposition</p>
+      <blockquote class="proposition-quote">
+        The New York Police Department exhibits systemic racial bias against Black and Hispanic New Yorkers, as evidenced by disproportionately higher complaint rates against these communities and disparities in how complaints are substantiated based on the complainant's race.
+      </blockquote>
+    </div>
 
-    <h3>Final Reflection</h3>
-    <div class="placeholder-block">[WRITE FINAL REFLECTION PARAGRAPHS HERE]</div>
+    <div class="writeup-block">
+      <p class="block-label">Final Reflection</p>
+      <div class="reflection-card">
+        <p>We created these visualizations supporting our claim that the New York Police Department likely does have some systemic racial bias against Black New Yorkers as demonstrated in the overwhelming number of complaints belonging to Black individuals. Visually, not only does it look better, we feel it is more straightforward for readers to understand and to interpret the message being presented. At a quick glance and reading of each visualization's title, we are able to easily convey our message to readers. It also utilizes way fewer deceptive practices as it intends to convey the obvious truth being demonstrated in the data without it being misused so that it gets misconstrued and reinterpreted. In this way, we are giving readers as honest of a truth as we can without having to use methods to construct a different or twisted message other than what we are given in the dataset.</p>
+        <p>This project opened our eyes to both how we can adjust what we focus on to influence the audience, and what we avoid focusing on. This project helped define "ethical analysis and visualization" further to mean that each part of forming a proposition, analysis, and the visualization must cohesively fit together in the simplest way possible. For example: our second visualization would not be as dishonest had we purely focused on the rate of complaint validation without extending our claims to policing as a whole. Because our claim critiques the validity of complaints by certain populations it influences viewers to see police complaints by Black and Hispanic citizens as less valid, which ignores any underlying structural issues. We must focus on what the data means and provide a holistic representation of it in an understandable format, as we have access to the whole dataset and viewers of our visualizations do not.</p>
+        <p>A misleading design choice is one that falsely claims to describe more of the data than it actually does. Had we compared substantiated complaints by proportion of the population, rather than just the proportion of substantiated complaints, we would still see outsized targeting of Black and Hispanic communities and it would remove room for doubt on whether the complaints were legitimate. This does introduce difficulty when we must simplify our findings into easy to understand visualizations, as it can be difficult to find the most representative statistics to use. Similarly, design choices such as non-linear axes distort the impact our statistic may have, to strengthen the claim. The limits of persuasive and dishonest design lies in whether we are enhancing an existing trend in the data, or overwriting one. We already manipulate the data to show trends, and there are valid use cases for log-transformations and similar manipulations, so long as we are open with our readers about what we have done and why we have done so.</p>
+      </div>
+    </div>
   </section>
 
 </main>
@@ -259,7 +341,7 @@
 <footer class="footer">
   <div class="container">
     <p><strong>DSC 106</strong> · Data Visualization II</p>
-    <p>Eric Zhao (e3zhao@ucsd.edu), Pratham Aggarwal (praggarwal@ucsd.edu), Sarah Colbath (mcolbath@ucsd.edu)</p>
+    <p>Eric Zhao (e3zhao@ucsd.edu) · Pratham Aggarwal (praggarwal@ucsd.edu) · Sarah Colbath (mcolbath@ucsd.edu)</p>
     <p>ProPublica / NYC Civilian Complaint Review Board Dataset</p>
   </div>
 </footer>
