@@ -11,7 +11,7 @@
     --surface:  #f9f9f8;
     --text:     #1a1a1a;
     --muted:    #6b6b6b;
-    --red-dark: #C41E3A;
+    --accent: #0891B2;
   }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -38,7 +38,7 @@
   .legend-line { width: 2px; height: 16px; flex-shrink: 0; }
   .insight {
     margin-top: 32px; background: var(--surface);
-    padding: 16px 20px; border-left: 2px solid var(--red-dark);
+    padding: 16px 20px; border-left: 2px solid var(--accent);
     font-size: 17px; color: var(--muted); line-height: 1.7;
   }
   .insight strong { color: var(--text); font-weight: 500; }
@@ -59,7 +59,7 @@
 </p>
 
 <div class="cards">
-  <div class="card" style="--c:#C41E3A;">
+  <div class="card" style="--c:#3B82F6;">
     <div class="card-label">Black residents</div>
     <div class="card-value">2.55×</div>
     <div class="card-sub">62.0% of complaints<br>24.3% of population</div>
@@ -69,12 +69,12 @@
     <div class="card-value">0.81×</div>
     <div class="card-sub">23.3% of complaints<br>28.9% of population</div>
   </div>
-  <div class="card" style="--c:#0891B2;">
+  <div class="card" style="--c:#10B981;">
     <div class="card-label">White residents</div>
     <div class="card-value">0.31×</div>
     <div class="card-sub">10.1% of complaints<br>32.1% of population</div>
   </div>
-  <div class="card" style="--c:#6366F1;">
+  <div class="card" style="--c:#8B5CF6;">
     <div class="card-label">Asian residents</div>
     <div class="card-value">0.14×</div>
     <div class="card-sub">1.9% of complaints<br>13.9% of population</div>
@@ -90,7 +90,7 @@
 
 <div class="legend">
   <div class="legend-item">
-    <div class="legend-line" style="background:#C41E3A;"></div>
+    <div class="legend-line" style="background:#3B82F6;"></div>
     Over-represented (ratio &gt; 1.0)
   </div>
   <div class="legend-item">
@@ -98,7 +98,7 @@
     Proportional baseline (1.0)
   </div>
   <div class="legend-item">
-    <div class="legend-line" style="background:#0891B2;"></div>
+    <div class="legend-line" style="background:#10B981;"></div>
     Under-represented (ratio &lt; 1.0)
   </div>
 </div>
@@ -126,10 +126,10 @@ const tickColor = '#666';
 const gridColor = 'rgba(0,0,0,0.07)';
 
 const COLORS = {
-  'Black':    { border: '#C41E3A', fill: '#C41E3Acc' },
+  'Black':    { border: '#3B82F6', fill: '#3B82F6cc' },
   'Hispanic': { border: '#F59E0B', fill: '#F59E0Bcc' },
-  'White':    { border: '#0891B2', fill: '#0891B2cc' },
-  'Asian':    { border: '#6366F1', fill: '#6366F1cc' },
+  'White':    { border: '#10B981', fill: '#10B981cc' },
+  'Asian':    { border: '#8B5CF6', fill: '#8B5CF6cc' },
 };
 
 let DATA = [];

@@ -11,8 +11,7 @@
     --surface: #f9f9f8;
     --text:    #1a1a1a;
     --muted:   #6b6b6b;
-    --teal:    #0F6E56;
-    --teal-lt: #1D9E75;
+    --accent:  #0891B2;
   }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -43,7 +42,7 @@
 
   .insight {
     margin-top: 32px; background: var(--surface);
-    padding: 16px 20px; border-left: 2px solid var(--teal);
+    padding: 16px 20px; border-left: 2px solid var(--accent);
     font-size: 17px; color: var(--muted); line-height: 1.7;
   }
   .insight strong { color: var(--text); font-weight: 500; }
@@ -65,12 +64,12 @@
 </p>
 
 <div class="cards">
-  <div class="card" style="--c:#6366F1;">
+  <div class="card" style="--c:#8B5CF6;">
     <div class="card-label">Asian complainants</div>
     <div class="card-value">29.1%</div>
     <div class="card-sub">155 substantiated<br>of 532 complaints</div>
   </div>
-  <div class="card" style="--c:#0891B2;">
+  <div class="card" style="--c:#10B981;">
     <div class="card-label">White complainants</div>
     <div class="card-value">27.9%</div>
     <div class="card-sub">777 substantiated<br>of 2,783 complaints</div>
@@ -80,7 +79,7 @@
     <div class="card-value">24.5%</div>
     <div class="card-sub">1,572 substantiated<br>of 6,424 complaints</div>
   </div>
-  <div class="card" style="--c:#C41E3A;">
+  <div class="card" style="--c:#3B82F6;">
     <div class="card-label">Black complainants</div>
     <div class="card-value">23.8%</div>
     <div class="card-sub">4,073 substantiated<br>of 17,114 complaints</div>
@@ -175,10 +174,9 @@ new Chart(document.getElementById('substChart'), {
         backgroundColor: 'transparent',
         borderWidth: 2,
         pointRadius: 6,
-        pointBackgroundColor: DATA.map(d => {
-          if (d.label === 'White' || d.label === 'Asian') return '#0891B2';
-          return '#C41E3A';
-        }),
+        pointBackgroundColor: DATA.map(d => ({
+          Asian: '#8B5CF6', White: '#10B981', Hispanic: '#F59E0B', Black: '#3B82F6'
+        }[d.label])),
         pointBorderColor: '#fff',
         pointBorderWidth: 2,
         tension: 0.2,
